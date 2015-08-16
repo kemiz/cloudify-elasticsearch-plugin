@@ -104,17 +104,17 @@ def _install(platform, url):
 
     if 'ubuntu' in platform:
         install_command = 'sudo dpkg -i {0}'.format(package_file)
-        if 'install' in run(INSTALLED_UBUNTU):
-            ctx.logger.info('Elasticsearch already installed.')
-            return
+        # if 'install' in run(INSTALLED_UBUNTU):
+        #     ctx.logger.info('Elasticsearch already installed.')
+        #     return
         if not url:
             url = ELASTIC_CO_BASE_URL \
                 + DEFAULT_DEB_URL
     elif 'centos' in platform:
         install_command = 'sudo yum install -y {0}'.format(package_file)
-        if 'not installed' not in run(INSTALLED_CENTOS):
-            ctx.logger.info('Logstash already installed.')
-            return
+        # if 'not installed' not in run(INSTALLED_CENTOS):
+        #     ctx.logger.info('Elasticsearch already installed.')
+        #     return
         if not url:
             url = ELASTIC_CO_BASE_URL \
                 + DEFAULT_RPM_URL
