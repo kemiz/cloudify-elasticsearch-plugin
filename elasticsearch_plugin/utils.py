@@ -23,11 +23,11 @@ from cloudify import exceptions
 
 def run(command):
 
+    global output
     command_as_list = command.split()
-    output = ''
     try:
         ctx.logger.info('Executing ' + command_as_list)
-        output = Popen(command_as_list, stdout=PIPE).communicate()[0]
+        output = Popen(command_as_list, stdout=PIPE).communicate()
     except Exception as e:
         raise exceptions.NonRecoverableError(
             'Unable to run command. Error {0}'.format(str(e)))
