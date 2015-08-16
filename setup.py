@@ -21,12 +21,12 @@ from setuptools import setup
 setup(
 
     # Do not use underscores in the plugin name.
-    name='cloudify-logstash-plugin',
+    name='cloudify-elasticsearch-plugin',
 
     version='1.2',
-    author='gigaspaces',
-    author_email='cosmo-admin@gigaspaces.com',
-    packages=['logstash_plugin'],
+    author='kemiz',
+    author_email='christos@gigaspaces.com',
+    packages=['elasticsearch_plugin'],
     license='LICENSE',
     install_requires=[
         "cloudify-plugins-common==3.2",
