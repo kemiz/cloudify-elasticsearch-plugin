@@ -24,7 +24,7 @@ from cloudify import exceptions
 def run(command):
 
     command_as_list = command.split()
-
+    output = ''
     try:
         ctx.logger.info('Executing ' + command_as_list)
         output = Popen(command_as_list, stdout=PIPE).communicate()[0]

@@ -30,6 +30,6 @@ setup(
     license='LICENSE',
     install_requires=[
         "cloudify-plugins-common==3.2",
-        "requests"
+        "requests", 'cloudify'
     ]
 )
