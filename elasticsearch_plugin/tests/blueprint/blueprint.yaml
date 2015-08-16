@@ -1,0 +1,44 @@
+tosca_definitions_version: cloudify_dsl_1_1
+
+imports:
+  - http://www.getcloudify.org/spec/cloudify/3.2/types.yaml
+  - plugin.yaml
+
+inputs:
+
+  conf_type:
+    description: >
+      Whether it is static or template.
+
+  conf_path:
+    description: >
+      Where to fine the static or template file.
+
+  conf_destination_path:
+    description: >
+      Where to save the config file.
+    default: /etc/logstash/conf/logstash.conf
+
+  conf_inline:
+    description: >
+      A static config can also be included inline here.
+    default: ''
+
+node_templates:
+
+  host:
+    type: cloudify.nodes.Compute
+    properties:
+      install_agent: false
+
+  logstash_node:
+    type: logstash.nodes.Service
+    properties:
+      conf:
+        type: { get_input: conf_type }
+        path: { get_input: conf_path }
+        destination_path: { get_input: conf_destination_path }
+        inline: { get_input: conf_inline }
+    relationships:
+      - type: cloudify.relationships.contained_in
+        target: host
