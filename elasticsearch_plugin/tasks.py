@@ -34,26 +34,8 @@ from constants import (
 
 # @operation
 # def configure(conf, **_):
-#     """ Configure Logstash """
-#
-#     if 'template' in conf.get('type'):
-#         if not conf.get('path'):
-#             raise exceptions.NonRecoverableError(
-#                 'logstash property conf.path '
-#                 'cannot be empty if conf.type is "template".')
-#         static_config = generate_static_config(conf.get('path'))
-#     elif 'static' in conf.get('type'):
-#         if not conf.get('path') and not conf.get('inline'):
-#             raise exceptions.NonRecoverableError(
-#                 'either logstash property conf.path '
-#                 'or conf.inline are required when conf.type is "static".')
-#         static_config = conf.get('path')
-#     else:
-#         raise exceptions.NonRecoverableError(
-#             'logstash property conf.type '
-#             'can only be "template" or "static".')
-#
-#     upload_static_config(static_config, conf.get('destination_path'))
+#     """ Configure Elasticsearch """
+# TODO: Add passing of configuration file
 
 
 def generate_static_config(template_conf):
