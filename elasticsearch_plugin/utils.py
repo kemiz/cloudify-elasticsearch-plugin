@@ -28,6 +28,7 @@ def run(command):
     try:
         run = Popen(command_as_list, stdout=PIPE)
         output = run.communicate()[0]
+        run.terminate()
     except Exception as e:
         raise exceptions.NonRecoverableError(
             'Unable to run command. Error {0}'.format(str(e)))
