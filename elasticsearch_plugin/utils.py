@@ -26,19 +26,13 @@ def run(command):
     command_as_list = command.split()
 
     try:
-        run = Popen(command_as_list, stdout=PIPE)
-    except Exception as e:
-        raise exceptions.NonRecoverableError(
-            'Unable to run command. Error {0}'.format(str(e)))
-
-    try:
-        output = run.communicate()
+        ctx.logger.info('Executing ' + command_as_list)
+        output = Popen(command_as_list, stdout=PIPE).communicate()[0]
     except Exception as e:
         raise exceptions.NonRecoverableError(
             'Unable to run command. Error {0}'.format(str(e)))
     finally:
-        ctx.logger.debug(
-            'RAN: {0}. OUT: {1}. Code: {2}.'.format(
-                command, output, run.returncode))
+        ctx.logger.info(
+            'Ran command: {0}. Output: {1}.'.format(command, output))
 
-    return run
+    return output
