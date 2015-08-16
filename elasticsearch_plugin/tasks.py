@@ -83,17 +83,18 @@ def stop(command, **_):
 
     if output.returncode != 0:
         raise exceptions.NonRecoverableError(
-            'Unable to stop log transport service: {0}'.format(output))
+            'Unable to stop Elasticsearch: {0}'.format(output))
 
 
 @operation
 def install(package_url, **_):
     """ Installs Elasticsearch """
 
-    ctx.logger.debug('Attempting to install Elasticsearch...')
+    ctx.logger.info('Attempting to install Elasticsearch...')
     distro = platform.linux_distribution(full_distribution_name=False)
-    _install(distro.lower(), package_url)
-
+    ctx.logger.info(distro)
+    ctx.logger.info(package_url)
+    _install(distro, package_url)
 
 def _install(platform, url):
     """ installs Elasticsearch from package """
