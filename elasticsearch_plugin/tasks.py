@@ -94,7 +94,8 @@ def install(package_url, **_):
     distro = platform.linux_distribution(full_distribution_name=False)
     ctx.logger.info(distro)
     ctx.logger.info(package_url)
-    _install(distro, package_url)
+    distro_lower = [x.lower() for x in distro]
+    _install(distro_lower, package_url)
 
 def _install(platform, url):
     """ installs Elasticsearch from package """
