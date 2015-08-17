@@ -1,0 +1,60 @@
+################################################################
+# Blueprint node types.
+#
+# specific new types for Elasticsearch.
+# these types are mapped to scripts that are resposible
+# for the lifecycle operation.
+################################################################
+plugins:
+  elasticsearch:
+    executor: host_agent
+    source: https://github.com/kemiz/cloudify-elasticsearch-plugin/archive/3.2.zip
+
+node_types:
+
+  elasticsearch.nodes.Elasticsearch:
+    derived_from: cloudify.nodes.SoftwareComponent
+    properties:
+      conf:
+        default:
+          api_port:
+            description: Elasticsearch API port
+            type: integer
+            default: 9200
+          cluster_port:
+            description: Elasticsearch cluster port
+            type: integer
+            default: 9300
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          implementation: elasticsearch.elasticsearch_plugin.tasks.install
+          inputs:
+            install_java:
+              default: True
+              type: boolean
+              description: >
+                Whether to install Java or not
+            package_url:
+              description: >
+                Provide a URL to an RPM or a DEB file.
+#        configure:
+#          implementation: elasticsearch.elasticsearch_plugin.tasks.configure
+#          inputs:
+#            conf:
+#              default: { get_property: [ SELF, conf ] }
+        start:
+          implementation: elasticsearch.elasticsearch_plugin.tasks.start
+          inputs:
+            command:
+              default: sudo service elasticsearch start
+        stop:
+          implementation: elasticsearch.elasticsearch_plugin.tasks.stop
+          inputs:
+            command:
+              default: sudo service elasticsearch stop
+
+relationships:
+
+  connected_to_elasticsearch:
+    derived_from: cloudify.relationships.connected_to
