@@ -87,7 +87,7 @@ def stop(command, **_):
 
 
 @operation
-def install(package_url, **_):
+def install(install_java, package_url, **_):
     """ Installs Elasticsearch """
 
     ctx.logger.info('Attempting to install Elasticsearch...')
@@ -95,7 +95,23 @@ def install(package_url, **_):
     ctx.logger.info(distro)
     ctx.logger.info(package_url)
     distro_lower = [x.lower() for x in distro]
+
+    if install_java is True:
+        _install_java(distro_lower)
+
     _install(distro_lower, package_url)
+
+def _install_java(platform):
+    """ installs Java """
+
+    if 'ubuntu' in platform:
+        install_command = 'sudo apt-get -qq --no-upgrade install openjdk-7-jdk'
+    elif 'centos' in platform:
+        install_command = 'sudo yum -y -q install java-1.7.0-openjdk'
+    else:
+        raise exceptions.NonRecoverableError('Only Centos and Ubuntu supported.')
+
+    run(install_command)
 
 def _install(platform, url):
     """ installs Elasticsearch from package """
