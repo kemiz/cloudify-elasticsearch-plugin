@@ -33,7 +33,7 @@ def run(command):
         raise exceptions.NonRecoverableError(
             'Unable to run command. Error {0}'.format(str(e)))
     finally:
-        ctx.logger.debug(
+        ctx.logger.info(
             'RAN: {0}. OUT: {1}. Code: {2}.'.format(
                 command, output, run.returncode))
 
