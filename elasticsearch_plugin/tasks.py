@@ -99,7 +99,7 @@ def install(install_java, package_url, **_):
         package = package_url
 
     ctx.logger.info('Installing on {0} {1} v{2}'.format(distro[0], distro[1], distro[2]))
-    ctx.logger.info('Using {4} package URL'.format(package))
+    ctx.logger.info('Using {0} package URL'.format(package))
     distro_lower = [x.lower() for x in distro]
 
     if install_java is True:
