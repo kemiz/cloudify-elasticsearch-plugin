@@ -98,18 +98,19 @@ def install(install_java, package_url, **_):
     else:
         package = package_url
 
-    ctx.logger.info('Installing on {0} {1} v{2}'.format(distro[0], distro[1], distro[2]))
+    ctx.logger.info('Installing on {0} {2} v{1}'.format(distro[0], distro[1], distro[2]))
     ctx.logger.info('Using {0} package URL'.format(package))
     distro_lower = [x.lower() for x in distro]
 
     if install_java is True:
-        ctx.logger.info("Installing Java")
         _install_java(distro_lower)
 
     _install(distro_lower, package_url)
 
 def _install_java(platform):
     """ installs Java """
+
+    ctx.logger.info("Installing Java")
 
     if 'ubuntu' in platform:
         install_command = 'sudo apt-get -qq --no-upgrade install openjdk-7-jdk'
