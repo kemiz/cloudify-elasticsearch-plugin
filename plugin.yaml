@@ -1,10 +1,15 @@
 ################################################################
-# Blueprint node types.
+# Elasticsearch node types.
 #
-# specific new types for Elasticsearch.
-# these types are mapped to scripts that are resposible
+# specific types for Elasticsearch.
+# these types are mapped to scripts that are responsible
 # for the lifecycle operation.
 ################################################################
+tosca_definitions_version: cloudify_dsl_1_1
+
+imports:
+  - /Users/kemi/Documents/Development/cloudify-package-installer-plugin/plugin.yaml
+
 plugins:
   elasticsearch:
     executor: host_agent
@@ -13,48 +18,23 @@ plugins:
 node_types:
 
   elasticsearch.nodes.Elasticsearch:
-    derived_from: cloudify.nodes.SoftwareComponent
+    derived_from: cloudify.nodes.ServiceInstaller
     properties:
-      conf:
+      service_name:
+        default: 'elasticsearch'
+      version:
+        default: '1.7.1'
+      config:
         default:
-          api_port:
-            description: Elasticsearch API port
-            type: integer
-            default: 9200
-          cluster_port:
-            description: Elasticsearch cluster port
-            type: integer
-            default: 9300
-    interfaces:
-      cloudify.interfaces.lifecycle:
-        create:
-          implementation: elasticsearch.elasticsearch_plugin.tasks.install
-          inputs:
-            install_java:
-              default: True
-              type: boolean
-              description: >
-                Whether to install Java or not
-            package_url:
-              description: >
-                Provide a URL to an RPM or a DEB file.
-#        configure:
-#          implementation: elasticsearch.elasticsearch_plugin.tasks.configure
-#          inputs:
-#            conf:
-#              default: { get_property: [ SELF, conf ] }
-        start:
-          implementation: elasticsearch.elasticsearch_plugin.tasks.start
-          inputs:
-            command:
-              default: sudo service elasticsearch start
-        stop:
-          implementation: elasticsearch.elasticsearch_plugin.tasks.stop
-          inputs:
-            command:
-              default: sudo service elasticsearch stop
+          package_dependencies:
+            - 'openjdk-7-jdk'
+            # Install Elasticsearch from URL
+            - 'https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.1.noarch.rpm'
+      es_config:
+        default:
+          api_port: 9200
+          cluster_port: 9300
 
 relationships:
-
   connected_to_elasticsearch:
     derived_from: cloudify.relationships.connected_to

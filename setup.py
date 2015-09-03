@@ -29,7 +29,7 @@ setup(
     packages=['elasticsearch_plugin'],
     license='LICENSE',
     install_requires=[
-        "cloudify-plugins-common==3.2",
+        "cloudify-plugins-common==3.2.1",
         "requests", 'cloudify'
     ]
 )
