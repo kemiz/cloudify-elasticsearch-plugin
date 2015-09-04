@@ -26,10 +26,10 @@ node_types:
         default: '1.7.1'
       config:
         default:
-          package_dependencies:
+          package_list:
             - 'openjdk-7-jdk'
-            # Install Elasticsearch from URL
             - 'https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.1.noarch.rpm'
+            - 'https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.1.deb'
       es_config:
         default:
           api_port: 9200
