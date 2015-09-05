@@ -7,9 +7,6 @@
 ################################################################
 tosca_definitions_version: cloudify_dsl_1_1
 
-imports:
-  - /Users/kemi/Documents/Development/cloudify-package-installer-plugin/plugin.yaml
-
 plugins:
   elasticsearch:
     executor: host_agent
