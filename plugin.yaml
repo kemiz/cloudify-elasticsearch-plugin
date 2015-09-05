@@ -25,7 +25,7 @@ node_types:
         default:
           package_list:
             - 'openjdk-7-jdk'
-            - 'https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.1.noarch.rpm'
+#            - 'https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.1.noarch.rpm'
             - 'https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.1.deb'
       es_config:
         default:
